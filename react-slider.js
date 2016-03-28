@@ -283,7 +283,15 @@
 
         var slider = this.refs.slider;
         var handle = this.refs.handle0;
-        var rect = slider.getBoundingClientRect();
+
+        var rect = null;
+        if (typeof(slider) != 'undefined' && slider != null) {
+			if (typeof(slider.getBoundingClientRect) != 'undefined') {
+				rect = slider.getBoundingClientRect();
+			} else if (typeof(slider.getDOMNode) == 'function' && typeof(slider.getDOMNode().getBoundingClientRect) == 'function') {
+				rect = slider.getDOMNode().getBoundingClientRect();
+			}
+		}
 
         var size = this._sizeKey();
 
